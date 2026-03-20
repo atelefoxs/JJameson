@@ -3,79 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的37位学生</title>
+<title>范县乐博乐博机器人家长会</title>
 <style>
-body {
-margin: 0;
-overflow: hidden;
-background-color: #fcfbf9;
-font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-.butterfly-name {
-position: absolute;
-color: #4a4a4a;
-font-size: 1rem;
-font-weight: 300;
-letter-spacing: 2px;
-cursor: pointer;
-user-select: none;
-transition: color 0.3s ease;
-animation: fly linear infinite alternate;
-}
-.butterfly-name:hover {
-color: #d4a373;
-}
-@keyframes fly {
-0% { transform: translate(0, 0) rotate(-5deg) scale(0.9); opacity: 0.6; }
-50% { transform: translate(30px, -50px) rotate(5deg) scale(1.1); opacity: 1; }
-100% { transform: translate(-20px, -100px) rotate(-2deg) scale(1); opacity: 0.7; }
-}
-@media screen and (max-width: 768px) and (orientation: portrait) {
-body {
-width: 100vh;
-height: 100vw;
-transform: rotate(90deg);
-transform-origin: top left;
-margin-left: 100vw;
-position: fixed;
-overflow: hidden;
-}
-}
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fcfbf9;
+        font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gear-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        opacity: 0.1;
+    }
+
+    .gear {
+        position: absolute;
+        border-radius: 50%;
+        border: 20px dotted #d4a373;
+    }
+
+    .gear1 {
+        width: 400px;
+        height: 400px;
+        top: -150px;
+        left: -150px;
+        animation: spin 20s linear infinite;
+    }
+
+    .gear2 {
+        width: 300px;
+        height: 300px;
+        bottom: -100px;
+        right: -100px;
+        animation: spin-reverse 15s linear infinite;
+    }
+
+    .gear3 {
+        width: 150px;
+        height: 150px;
+        top: 30%;
+        left: 80%;
+        animation: spin 10s linear infinite;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+
+    #loading-screen {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        transition: opacity 0.8s ease;
+    }
+
+    .progress-container {
+        width: 200px;
+        height: 4px;
+        background: #eee;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #d4a373;
+        animation: loading 2.5s forwards cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes loading {
+        0% { width: 0%; }
+        50% { width: 70%; }
+        100% { width: 100%; }
+    }
+
+    #login-screen {
+        opacity: 0;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        transition: opacity 1s ease;
+        position: relative;
+        z-index: 10;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        color: #4a4a4a;
+        margin-bottom: 60px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        letter-spacing: 4px;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        color: #999;
+        margin-bottom: 15px; 
+    }
+
+    .teacher-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        perspective: 1000px;
+    }
+
+    .teacher-card {
+        flex: 1;
+        height: 120px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: #666;
+        transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .teacher-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        color: #d4a373;
+    }
+
+    .teacher-group.selected .teacher-card:not(.active) {
+        flex: 0.1;
+        opacity: 0;
+        pointer-events: none;
+        margin: 0;
+        transform: scale(0.5);
+    }
+
+    .teacher-card.active {
+        flex: 3;
+        background: #d4a373;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 15px 35px rgba(212, 163, 115, 0.3);
+    }
+
+    .teacher-card.active::after {
+        content: '登 录 中...';
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.8rem;
+        font-weight: normal;
+        opacity: 0.8;
+    }
 </style>
 </head>
 <body>
-<script>
-const students = [
-"彭雨露", "李鸣宇", "柯艺博", "李政岩", "吴俊毅",
-"牛津", "白展旭", "房本泽", "李继龙",
-"赵一卓", "张易洋", "丁修煜", "田顺泽", "赵佑旭", "路浩洋", "大正",
-"胡家宝", "赵恩卓", "郭昊阳", "房晓晨",
-"王昱棋", "高润泽", "张秉政", "张泽昊",
-"张泽恒", "张泽航", "王钰焯", "张禹森",
-"王浩琪", "孙铭朗", "田交正",
-"李金恒", "陈子嘉", "岳政硕", "李晨",
-"单凯睿", "韩梓茂"
-];
-const container = document.body;
-const maxNamesOnScreen = 4;
 
-function createName(studentName) {
-const nameEl = document.createElement('div');
-nameEl.classList.add('butterfly-name');
-nameEl.innerText = studentName;
-nameEl.style.left = Math.random() * 85 + 5 + '%';
-nameEl.style.top = Math.random() * 85 + 5 + '%';
-const duration = 8 + Math.random() * 10;
-nameEl.style.animationDuration = duration + 's';
-nameEl.style.animationDelay = '-' + Math.random() * 5 + 's';
-nameEl.addEventListener('click', () => {
-window.location.href = 'student.html?name=' + encodeURIComponent(studentName);
-});
-container.appendChild(nameEl);
-}
-for(let i = 0; i < maxNamesOnScreen; i++) {
-students.forEach(name => createName(name));
-}
+<div class="gear-bg">
+    <div class="gear gear1"></div>
+    <div class="gear gear2"></div>
+    <div class="gear gear3"></div>
+</div>
+
+<div id="loading-screen">
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+</div>
+
+<div id="login-screen">
+    <h1>范县乐博乐博机器人家长会</h1>
+    <p class="subtitle">请选择功能</p>
+    
+    <div class="teacher-group" id="teacherGroup">
+        <div class="teacher-card" onclick="selectTeacher(this, '付')">学员海（教师评语）</div>
+        <div class="teacher-card" onclick="selectTeacher(this, '宋')">时代大势</div>
+        <div class="teacher-card" onclick="selectTeacher(this, '陈')">我们是谁？</div>
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('login-screen').style.opacity = '1';
+            }, 800);
+        }, 2500);
+    };
+
+    function selectTeacher(el, name) {
+        const group = document.getElementById('teacherGroup');
+        
+        if (el.classList.contains('active')) return;
+
+        group.classList.add('selected');
+        el.classList.add('active');
+
+        // 根据传入的老师名字，匹配不同的跳转链接
+        let targetUrl = '';
+        if (name === '付') {
+            targetUrl = 'name.html';
+        } else if (name === '宋') {
+            targetUrl = 'song.html';
+        } else if (name === '陈') {
+            targetUrl = 'chen.html';
+        }
+
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 1500);
+    }
 </script>
 </body>
 </html>
