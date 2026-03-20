@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的37位学生</title>
+<style>
+body {
+margin: 0;
+overflow: hidden;
+background-color: #fcfbf9;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+.butterfly-name {
+position: absolute;
+color: #4a4a4a;
+font-size: 1rem;
+font-weight: 300;
+letter-spacing: 2px;
+cursor: pointer;
+user-select: none;
+transition: color 0.3s ease;
+animation: fly linear infinite alternate;
+}
+.butterfly-name:hover {
+color: #d4a373;
+}
+@keyframes fly {
+0% { transform: translate(0, 0) rotate(-5deg) scale(0.9); opacity: 0.6; }
+50% { transform: translate(30px, -50px) rotate(5deg) scale(1.1); opacity: 1; }
+100% { transform: translate(-20px, -100px) rotate(-2deg) scale(1); opacity: 0.7; }
+}
+@media screen and (max-width: 768px) and (orientation: portrait) {
+body {
+width: 100vh;
+height: 100vw;
+transform: rotate(90deg);
+transform-origin: top left;
+margin-left: 100vw;
+position: fixed;
+overflow: hidden;
+}
+}
+</style>
+</head>
+<body>
+<script>
+const students = [
+"彭雨露", "李鸣宇", "柯艺博", "李政岩", "吴俊毅",
+"牛津", "白展旭", "房本泽", "李继龙",
+"赵一卓", "张易洋", "丁修煜", "田顺泽", "赵佑旭", "路浩洋", "大正",
+"胡家宝", "赵恩卓", "郭昊阳", "房晓晨",
+"王昱棋", "高润泽", "张秉政", "张泽昊",
+"张泽恒", "张泽航", "王钰焯", "张禹森",
+"王浩琪", "孙铭朗", "田交正",
+"李金恒", "陈子嘉", "岳政硕", "李晨",
+"单凯睿", "韩梓茂"
+];
+const container = document.body;
+const maxNamesOnScreen = 4;
+const chars = "!@#$%^&*()_+-=[]{}|;':,.<>/?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ希腊字母αβγδεζηθικλμνξοπρστυφχψω*";
+
+
+
+function createName(studentName) {
+const nameEl = document.createElement('div');
+nameEl.classList.add('butterfly-name');
+nameEl.innerText = studentName;
+nameEl.style.left = Math.random() * 85 + 5 + '%';
+nameEl.style.top = Math.random() * 85 + 5 + '%';
+const duration = 8 + Math.random() * 10;
+nameEl.style.animationDuration = duration + 's';
+nameEl.style.animationDelay = '-' + Math.random() * 5 + 's';
+nameEl.addEventListener('click', () => {
+window.location.href = 'student.html?name=' + encodeURIComponent(studentName);
+});
+container.appendChild(nameEl);
+}
+
+
+for(let i = 0; i < maxNamesOnScreen; i++) {
+students.forEach(name => createName(name));
+}
+</script>
+</body>
+</html>
