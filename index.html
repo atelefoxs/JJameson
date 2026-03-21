@@ -201,9 +201,9 @@
     <p class="subtitle">请选择功能</p>
     
     <div class="teacher-group" id="teacherGroup">
-        <div class="teacher-card" onclick="selectTeacher(this, '付')">学员海（教师评语）</div>
-        <div class="teacher-card" onclick="selectTeacher(this, '宋')">时代大势</div>
-        <div class="teacher-card" onclick="selectTeacher(this, '陈')">我们是谁？</div>
+        <div class="teacher-card" onclick="selectTeacher(this, 'F')">学员海（教师评语）</div>
+        <div class="teacher-card" onclick="selectTeacher(this, 'Q')">时代大势</div>
+        <div class="teacher-card" onclick="selectTeacher(this, 'B')">我们是谁？</div>
     </div>
 </div>
 
@@ -226,14 +226,14 @@
         group.classList.add('selected');
         el.classList.add('active');
 
-        // 根据传入的老师名字，匹配不同的跳转链接
+        // 根据传入的名字，匹配不同的跳转链接
         let targetUrl = '';
-        if (name === '付') {
+        if (name === 'F') {
             targetUrl = 'name.html';
-        } else if (name === '宋') {
+        } else if (name === 'Q') {
             targetUrl = 'logan.html';
-        } else if (name === '陈') {
-            targetUrl = 'chen.html';
+        } else if (name === 'B') {
+            targetUrl = 'https://www.roborobo.cn';
         }
 
         setTimeout(() => {
