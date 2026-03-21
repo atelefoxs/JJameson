@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时代大势 - 智绘未来</title>
+    <style>
+        /* 整体基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #050508;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 科技感背景光效 */
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        /* 顶部标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            -webkit-background-clip: text;
+            -webkit-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #888e9b;
+            letter-spacing: 2px;
+        }
+
+        /* 卡片容器 */
+        .container {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        /* 核心卡片样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 320px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        .card:hover {
+            transform: translateY(-12px);
+            background: rgba(0, 114, 255, 0.08);
+            border-color: #00c6ff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 198, 255, 0.2);
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .card h2::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: #00c6ff;
+            margin-top: 10px;
+            transition: width 0.3s;
+        }
+
+        .card:hover h2::after {
+            width: 60px;
+        }
+
+        .card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* 动画效果定义 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 80px;
+            color: #444;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .card { width: 100%; max-width: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="header">
+        <h1>时代大势</h1>
+        <p>洞察未来 · 顺势而为</p>
+    </div>
+
+    <div class="container">
+        <a href="extension://nhppiemcomgngbgdeffdgkhnkjlgpcdi/data/pdf.js/web/viewer.html?file=https://www.tup.tsinghua.edu.cn/upload/books/yz/107125-01.pdf#page=1&zoom=auto,-155,817" target="_blank" class="card">
+            <h2>人工智能</h2>
+            <p>从大模型到通用人工智能（AGI），AI正在重构各行各业。作为未来的核心生产力，编程是对话未来的第一语言。</p>
+        </a>
+
+        <a href="https://kidscodes.cn/10124.html" target="_blank" class="card">
+            <h2>科技特长生</h2>
+            <p>国家教育改革重点方向。通过信息学竞赛培养高素质创新人才，助力孩子在升学与能力发展中抢占先机。</p>
+        </a>
+
+        <a href="https://www.ndrc.gov.cn/wsdwhfz/202509/t20250901_1400201.html" target="_blank" class="card">
+            <h2>发展趋势</h2>
+            <p>紧跟国家“十四五”规划，聚焦数字经济与科技自立自强战略，在时代洪流中找准成长的确定性方向。</p>
+        </a>
+    </div>
+
+    <div class="footer">
+        © 2026 乐博乐博机器人教育 · 助力每一位科技少年
+    </div>
+
+</body>
+</html>
